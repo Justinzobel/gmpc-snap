@@ -52,3 +52,5 @@ parts:
   libmpd:
     plugin: autotools
     source: http://download.sarine.nl/Programs/gmpc/11.8.16/libmpd-11.8.17.tar.gz
+    build-packages:
+      - gawk
