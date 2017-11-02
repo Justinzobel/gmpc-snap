@@ -1,0 +1,54 @@
+name: gnome-music-player-client
+version: '11.8'
+summary: GNOME Music Player Client - The true MPD client.
+description: |
+  GMPC is a GTK2 frontend for Music Player Daemon. It is released under the GNU General Public License and is free software. It is designed to be lightweight and easy to use, while providing full access to all of MPD's features. Users are presented with several different methods to browse through their music. It can be extended by plugins, of which many are available. GMPC is the oldest maintained Graphical client for MPD. The project was started in 2003 and been under constant development ever since.
+grade: devel #stable once ready
+confinement: devmode # use 'strict' once you have the right plugs and slots
+
+apps:
+  gnome-music-player-client:
+    command: bin/gmpc
+    plugs:
+      - unity7
+      - x11
+      - network
+
+parts:
+  client:
+    plugin: nil
+    source: http://download.sarine.nl/Programs/gmpc/11.8/gmpc-11.8.16.tar.gz
+    build-packages:
+      - gnome-doc-utils
+      - gob2
+      - libgtk2.0-dev
+      - libmpd-dev
+      - libsoup2.4-dev
+      - libsqlite3-dev
+      - libunique-dev
+      - valac
+    stage-packages:
+      - libc6
+      - libgtk2.0-0
+      - libmpd1
+      - libsoup2.4-1
+      - libsqlite3-0
+      - xdg-utils
+      - libgcc1 
+      - libgl1-mesa-glx
+      - libgl1
+      - libglib2.0-0
+      - libqjson0
+      - libstdc++6
+      - libx11-6
+      - zlib1g
+    after: [libmpd]
+    prepare: |
+      ./configure --prefix=
+    build: |
+      make CFLAGS+='-lm'
+    install: |
+      DESTDIR=$SNAPCRAFT_PART_INSTALL make install
+  libmpd:
+    plugin: autotools
+    source: http://download.sarine.nl/Programs/gmpc/11.8.16/libmpd-11.8.17.tar.gz
