@@ -42,7 +42,6 @@ parts:
       - libstdc++6
       - libx11-6
       - zlib1g
-    after: [libmpd]
     prepare: |
       ./configure --prefix=
     build: |
