@@ -48,6 +48,7 @@ parts:
       make CFLAGS+='-lm'
     install: |
       DESTDIR=$SNAPCRAFT_PART_INSTALL make install
+    after: [desktop-gtk3]
   libmpd:
     plugin: autotools
     source: http://download.sarine.nl/Programs/gmpc/11.8.16/libmpd-11.8.17.tar.gz
